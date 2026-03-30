@@ -19,6 +19,13 @@ sed -i 's/192.168.1.1/10.10.0.253/g' package/base-files/files/bin/config_generat
 
 rm -rf temp_resp
 
+# --- BURAYA EKLEYİN ---
+# PR 21640 yamasını indir ve uygula (Hata vermemesi için -N eklendi)
+wget -qO 21640.patch https://github.com/openwrt/openwrt/pull/21640.patch
+patch -p1 -N < 21640.patch || echo "Yama zaten uygulanmış veya başarısız oldu, geçiliyor..."
+rm 21640.patch
+# ---------------------
+
 git clone -b master --single-branch https://github.com/openwrt/packages.git temp_resp/openwrt_packages
 # git clone -b main --single-branch https://github.com/openwrt/openwrt.git temp_resp/openwrt_source
 
